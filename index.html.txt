@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FixoChamp | Trusted Local Technicians in Champua</title>
+    <meta name="description" content="Find verified Electricians, Plumbers, AC Technicians, and Carpenters in Champua, Odisha. Instant call & WhatsApp booking.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Fonts: Plus Jakarta Sans & Noto Sans Oriya -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Oriya:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', 'Noto Sans Oriya', sans-serif;
+            background-color: #f8fafc;
+        }
+        .odia-text {
+            font-family: 'Noto Sans Oriya', sans-serif;
+        }
+        /* Hide scrollbar for category pills on mobile */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased">
+
+    <!-- Top Navigation Bar -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-2.5">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white shadow-md shadow-blue-600/20">
+                    <i class="fa-solid fa-wrench text-lg"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold tracking-tight text-slate-900">Fixo<span class="text-blue-600">Champ</span></span>
+                    <p class="text-[11px] font-medium text-slate-500 -mt-1">Champua Local Services</p>
+                </div>
+            </a>
+
+            <!-- Right CTA -->
+            <div class="flex items-center gap-2">
+                <button onclick="openRegisterModal()" class="text-xs sm:text-sm font-semibold bg-slate-900 hover:bg-slate-800 text-white px-3.5 py-2 rounded-lg transition flex items-center gap-1.5 shadow-sm">
+                    <i class="fa-solid fa-user-plus text-blue-400"></i>
+                    <span>Join as Karigar</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-b from-blue-900 via-blue-800 to-indigo-900 text-white pt-10 pb-14 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="inline-flex items-center gap-2 bg-white/10 border border-white/15 px-3 py-1 rounded-full text-xs font-medium text-blue-100 mb-4">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                Available across Champua, Rimuli & Nearby Areas
+            </div>
+            
+            <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight mb-3">
+                Champua Me Trusted Mistri & Technicians, <span class="text-amber-400">Bas Ek Click Me</span>
+            </h1>
+            <p class="text-blue-100 text-sm sm:text-base max-w-2xl mx-auto mb-7">
+                Electrician, Plumber, AC Mechanic aur Carpenter — bina kisi middleman commission ke seedha call ya WhatsApp par book karein.
+            </p>
+
+            <!-- Search Bar -->
+            <div class="max-w-xl mx-auto relative">
+                <div class="flex items-center bg-white rounded-2xl p-1.5 shadow-xl">
+                    <div class="pl-3.5 pr-2 text-slate-400">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        onkeyup="filterTechnicians()"
+                        placeholder="Search service or area (e.g., Electrician, AC, Main Market)..." 
+                        class="w-full py-2.5 px-2 text-sm sm:text-base text-slate-800 placeholder-slate-400 focus:outline-none"
+                    >
+                    <button onclick="filterTechnicians()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2.5 rounded-xl text-sm transition shrink-0">
+                        Search
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Filter Bar -->
+    <section class="max-w-6xl mx-auto px-4 -mt-6 relative z-10">
+        <div class="bg-white rounded-2xl shadow-md border border-slate-100 p-3 flex items-center gap-2 overflow-x-auto no-scrollbar" id="categoryButtons">
+            <button onclick="setCategory('All')" data-cat="All" class="cat-btn active shrink-0 px-4 py-2.5 rounded-xl text-sm font-bold bg-blue-600 text-white transition flex items-center gap-2">
+                <i class="fa-solid fa-border-all"></i> All Services
+            </button>
+            <button onclick="setCategory('Electrician')" data-cat="Electrician" class="cat-btn shrink-0 px-4 py-2.5 rounded-xl text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition flex items-center gap-2">
+                <i class="fa-solid fa-bolt text-amber-500"></i> Electrician <span class="odia-text text-xs opacity-75">(ଇଲେକ୍ଟ୍ରିସିଆନ୍)</span>
+            </button>
+            <button onclick="setCategory('Plumber')" data-cat="Plumber" class="cat-btn shrink-0 px-4 py-2.5 rounded-xl text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition flex items-center gap-2">
+                <i class="fa-solid fa-faucet-drip text-cyan-600"></i> Plumber <span class="odia-text text-xs opacity-75">(ପ୍ଲମ୍ବର)</span>
+            </button>
+            <button onclick="setCategory('AC Technician')" data-cat="AC Technician" class="cat-btn shrink-0 px-4 py-2.5 rounded-xl text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition flex items-center gap-2">
+                <i class="fa-solid fa-snowflake text-sky-500"></i> AC & Fridge <span class="odia-text text-xs opacity-75">(ଏସି ମେକାନିକ୍)</span>
+            </button>
+            <button onclick="setCategory('Carpenter')" data-cat="Carpenter" class="cat-btn shrink-0 px-4 py-2.5 rounded-xl text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition flex items-center gap-2">
+                <i class="fa-solid fa-hammer text-orange-600"></i> Carpenter <span class="odia-text text-xs opacity-75">(ବଢ଼େଇ)</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Main Directory Grid -->
+    <main class="max-w-6xl mx-auto px-4 py-8">
+        <div class="flex items-center justify-between mb-5">
+            <div>
+                <h2 class="text-lg sm:text-xl font-bold text-slate-900" id="sectionTitle">Available Technicians in Champua</h2>
+                <p class="text-xs sm:text-sm text-slate-500">ID-checked local experts • Direct contact</p>
+            </div>
+            <span class="text-xs font-semibold bg-blue-50 text-blue-700 px-3 py-1 rounded-full border border-blue-200" id="resultCount">
+                Showing 8 Experts
+            </span>
+        </div>
+
+        <!-- Cards Container -->
+        <div id="technicianGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <!-- Cards will be dynamically injected here via JS -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="hidden text-center py-14 bg-white rounded-2xl border border-slate-200">
+            <div class="w-14 h-14 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center mx-auto mb-3 text-xl">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <h3 class="text-base font-bold text-slate-800">Koi technician nahi mila</h3>
+            <p class="text-sm text-slate-500 mt-1 mb-4">Doosra keyword try karein ya "All Services" par click karein.</p>
+            <button onclick="resetFilters()" class="bg-blue-600 text-white text-sm font-semibold px-4 py-2 rounded-lg">
+                Show All Technicians
+            </button>
+        </div>
+    </main>
+
+    <!-- How It Works Section -->
+    <section class="bg-white border-t border-slate-200 py-12 px-4 mt-6">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl font-extrabold text-slate-900">FixoChamp Kaise Kaam Karta Hai?</h2>
+                <p class="text-sm text-slate-500 mt-1">Simple 3-step process — fast aur transparent</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="p-5 rounded-2xl bg-slate-50 border border-slate-100">
+                    <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 font-bold flex items-center justify-center mb-3">1</div>
+                    <h3 class="font-bold text-slate-900 mb-1">Service & Area Chunein</h3>
+                    <p class="text-sm text-slate-600">Apni zaroorat ke hisaab se Electrician, Plumber, AC Tech ya Carpenter select karein.</p>
+                </div>
+                <div class="p-5 rounded-2xl bg-slate-50 border border-slate-100">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center mb-3">2</div>
+                    <h3 class="font-bold text-slate-900 mb-1">Direct Call ya WhatsApp</h3>
+                    <p class="text-sm text-slate-600">Technician ke profile par "Call" ya "WhatsApp" button dabakar seedha samay aur kaam discuss karein.</p>
+                </div>
+                <div class="p-5 rounded-2xl bg-slate-50 border border-slate-100">
+                    <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 font-bold flex items-center justify-center mb-3">3</div>
+                    <h3 class="font-bold text-slate-900 mb-1">Kaam Hone Par Payment</h3>
+                    <p class="text-sm text-slate-600">Kaam poora hone ke baad seedha technician ko cash ya UPI se payment karein.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-300 py-10 px-4">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="text-center sm:text-left">
+                <span class="text-xl font-extrabold text-white">Fixo<span class="text-blue-400">Champ</span></span>
+                <p class="text-xs text-slate-400 mt-1">Connecting Champua homes with reliable local technicians.</p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-4 text-xs text-slate-400">
+                <span><i class="fa-solid fa-location-dot text-blue-400 mr-1"></i> Champua, Keonjhar, Odisha</span>
+                <button onclick="openRegisterModal()" class="text-blue-400 hover:underline font-medium">Register as a Technician</button>
+            </div>
+        </div>
+        <div class="max-w-6xl mx-auto border-t border-slate-800 mt-6 pt-5 text-center text-xs text-slate-500">
+            © 2026 FixoChamp Champua. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Modal: Join as Technician -->
+    <div id="registerModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
+            <button onclick="closeRegisterModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <div class="mb-4">
+                <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md">For Local Technicians</span>
+                <h3 class="text-xl font-bold text-slate-900 mt-2">FixoChamp Me Apna Naam Jodein</h3>
+                <p class="text-xs text-slate-500 mt-1">Agar aap Champua area me kaam karte hain, toh neeche details bhariye. Hamari team aapse संपर्क karegi.</p>
+            </div>
+
+            <form onsubmit="submitTechnicianForm(event)" class="space-y-3.5">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Aapka Poora Naam *</label>
+                    <input type="text" id="regName" required placeholder="e.g., Rakesh Mahanta" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-blue-600">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Kaam (Category) *</label>
+                    <select id="regSkill" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-blue-600 bg-white">
+                        <option value="Electrician">Electrician (ବିଜୁଳି ମିସ୍ତ୍ରୀ)</option>
+                        <option value="Plumber">Plumber (ପ୍ଲମ୍ବର)</option>
+                        <option value="AC Technician">AC & Fridge Technician</option>
+                        <option value="Carpenter">Carpenter (ବଢ଼େଇ)</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Mobile / WhatsApp *</label>
+                        <input type="tel" id="regPhone" required placeholder="9861XXXXXX" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-blue-600">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Experience (Years)</label>
+                        <input type="text" id="regExp" placeholder="e.g., 5 Years" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-blue-600">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Area / Location *</label>
+                    <input type="text" id="regArea" required placeholder="e.g., Champua Market / Rimuli" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-blue-600">
+                </div>
+
+                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl text-sm transition flex items-center justify-center gap-2 mt-2">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> Send Details on WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript Data & Logic -->
+    <script>
+        // ==========================================
+        // 1. ADMIN CONFIGURATION (Apna WhatsApp Number Yahan Dalein)
+        // ==========================================
+        const ADMIN_WHATSAPP = "919861000000"; // Format: 91 + 10 digit mobile number
+
+        // ==========================================
+        // 2. TECHNICIANS DATABASE (Yahan Asli Technicians Add Karein)
+        // ==========================================
+        const technicians = [
+            {
+                id: 1,
+                name: "Suresh Kumar Mahanta",
+                category: "Electrician",
+                specialty: "House Wiring, Inverter, MCB & Fan Repair",
+                area: "Champua Main Market & College Road",
+                experience: "7 Years Exp",
+                visitCharge: "₹100",
+                phone: "919861000001",
+                available: true,
+                verified: true,
+                rating: "4.8"
+            },
+            {
+                id: 2,
+                name: "Bikash Chandra Naik",
+                category: "Plumber",
+                specialty: "Tap Leakage, Water Tank, Bathroom Fitting & Motor",
+                area: "Champua Bypass & Hospital Road",
+                experience: "6 Years Exp",
+                visitCharge: "₹100",
+                phone: "919861000002",
+                available: true,
+                verified: true,
+                rating: "4.7"
+            },
+            {
+                id: 3,
+                name: "Md. Irfan Ansari",
+                category: "AC Technician",
+                specialty: "Split/Window AC Service, Gas Refill & Fridge Repair",
+                area: "Champua Bus Stand & Rimuli",
+                experience: "8 Years Exp",
+                visitCharge: "₹150",
+                phone: "919861000003",
+                available: true,
+                verified: true,
+                rating: "4.9"
+            },
+            {
+                id: 4,
+                name: "Prakash Behera",
+                category: "Carpenter",
+                specialty: "Door Lock, Bed Repair, Modular Kitchen & Woodwork",
+                area: "Champua Town & Joda Road",
+                experience: "10 Years Exp",
+                visitCharge: "₹150",
+                phone: "919861000004",
+                available: true,
+                verified: true,
+                rating: "4.8"
+            },
+            {
+                id: 5,
+                name: "Manoj Kumar Patra",
+                category: "Electrician",
+                specialty: "Meter Board, Geyser Fitting & Short Circuit Fix",
+                area: "Rimuli & Champua Block Chowk",
+                experience: "5 Years Exp",
+                visitCharge: "₹100",
+                phone: "919861000005",
+                available: true,
+                verified: true,
+                rating: "4.6"
+            },
+            {
+                id: 6,
+                name: "Santosh Sethi",
+                category: "Plumber",
+                specialty: "CPVC Pipe Fitting, Commode Repair & Pump Installation",
+                area: "College Road & Sub-Collector Office Area",
+                experience: "9 Years Exp",
+                visitCharge: "₹100",
+                phone: "919861000006",
+                available: false,
+                verified: true,
+                rating: "4.7"
+            }
+        ];
+
+        let selectedCategory = "All";
+
+        // Category Icon & Badge Colors Helper
+        function getCategoryStyle(category) {
+            switch(category) {
+                case "Electrician":
+                    return { icon: "fa-bolt", bg: "bg-amber-50", text: "text-amber-700", border: "border-amber-200" };
+                case "Plumber":
+                    return { icon: "fa-faucet-drip", bg: "bg-cyan-50", text: "text-cyan-700", border: "border-cyan-200" };
+                case "AC Technician":
+                    return { icon: "fa-snowflake", bg: "bg-sky-50", text: "text-sky-700", border: "border-sky-200" };
+                case "Carpenter":
+                    return { icon: "fa-hammer", bg: "bg-orange-50", text: "text-orange-700", border: "border-orange-200" };
+                default:
+                    return { icon: "fa-wrench", bg: "bg-blue-50", text: "text-blue-700", border: "border-blue-200" };
+            }
+        }
+
+        // Render Technician Cards
+        function renderTechnicians(list) {
+            const grid = document.getElementById("technicianGrid");
+            const emptyState = document.getElementById("emptyState");
+            const countLabel = document.getElementById("resultCount");
+
+            grid.innerHTML = "";
+            countLabel.textContent = `Showing ${list.length} Expert${list.length !== 1 ? 's' : ''}`;
+
+            if (list.length === 0) {
+                grid.classList.add("hidden");
+                emptyState.classList.remove("hidden");
+                return;
+            }
+
+            grid.classList.remove("hidden");
+            emptyState.classList.add("hidden");
+
+            list.forEach(tech => {
+                const style = getCategoryStyle(tech.category);
+                const whatsappMsg = encodeURIComponent(
+                    `Namaskar ${tech.name} ji, mujhe FixoChamp website se aapka number mila hai. Mujhe Champua me ${tech.category} ka kaam karwana hai.`
+                );
+
+                const card = `
+                    <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition p-5 flex flex-col justify-between">
+                        <div>
+                            <!-- Top Row: Category Badge & Availability -->
+                            <div class="flex items-center justify-between gap-2 mb-3">
+                                <span class="inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-1 rounded-lg border ${style.bg} ${style.text} ${style.border}">
+                                    <i class="fa-solid ${style.icon}"></i> ${tech.category}
+                                </span>
+                                ${tech.available 
+                                    ? `<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Available</span>`
+                                    : `<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full"><span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Busy Today</span>`
+                                }
+                            </div>
+
+                            <!-- Technician Name & Verified Tag -->
+                            <div class="flex items-center gap-1.5">
+                                <h3 class="text-lg font-bold text-slate-900">${tech.name}</h3>
+                                ${tech.verified ? `<i class="fa-solid fa-circle-check text-blue-600 text-sm" title="ID Verified by FixoChamp"></i>` : ''}
+                            </div>
+
+                            <!-- Specialty -->
+                            <p class="text-xs sm:text-sm text-slate-600 mt-1 line-clamp-2">${tech.specialty}</p>
+
+                            <!-- Meta Info Box -->
+                            <div class="mt-4 pt-3 border-t border-slate-100 space-y-1.5 text-xs text-slate-600">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-location-dot text-slate-400 w-3.5 text-center"></i>
+                                    <span>${tech.area}</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-2">
+                                        <i class="fa-solid fa-briefcase text-slate-400 w-3.5 text-center"></i>
+                                        <span>${tech.experience} • ⭐ ${tech.rating}</span>
+                                    </div>
+                                    <div class="font-bold text-slate-800 bg-slate-100 px-2 py-0.5 rounded">
+                                        Visit: ${tech.visitCharge}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="grid grid-cols-2 gap-2.5 mt-5">
+                            <a href="tel:+${tech.phone}" class="flex items-center justify-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-3 rounded-xl text-xs sm:text-sm transition shadow-sm">
+                                <i class="fa-solid fa-phone"></i> Call Now
+                            </a>
+                            <a href="https://wa.me/${tech.phone}?text=${whatsappMsg}" target="_blank" rel="noopener" class="flex items-center justify-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 px-3 rounded-xl text-xs sm:text-sm transition shadow-sm">
+                                <i class="fa-brands fa-whatsapp text-base"></i> WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += card;
+            });
+        }
+
+        // Category Selection
+        function setCategory(category) {
+            selectedCategory = category;
+            
+            document.querySelectorAll(".cat-btn").forEach(btn => {
+                if (btn.dataset.cat === category) {
+                    btn.classList.remove("bg-slate-100", "text-slate-700");
+                    btn.classList.add("bg-blue-600", "text-white", "font-bold");
+                } else {
+                    btn.classList.remove("bg-blue-600", "text-white", "font-bold");
+                    btn.classList.add("bg-slate-100", "text-slate-700", "font-semibold");
+                }
+            });
+
+            document.getElementById("sectionTitle").textContent = 
+                category === "All" ? "Available Technicians in Champua" : `${category}s in Champua`;
+
+            filterTechnicians();
+        }
+
+        // Combined Search + Category Filter
+        function filterTechnicians() {
+            const query = document.getElementById("searchInput").value.toLowerCase().trim();
+
+            const filtered = technicians.filter(tech => {
+                const matchesCategory = selectedCategory === "All" || tech.category === selectedCategory;
+                const matchesSearch = 
+                    tech.name.toLowerCase().includes(query) ||
+                    tech.category.toLowerCase().includes(query) ||
+                    tech.specialty.toLowerCase().includes(query) ||
+                    tech.area.toLowerCase().includes(query);
+
+                return matchesCategory && matchesSearch;
+            });
+
+            renderTechnicians(filtered);
+        }
+
+        function resetFilters() {
+            document.getElementById("searchInput").value = "";
+            setCategory("All");
+        }
+
+        // Modal Functions
+        function openRegisterModal() {
+            document.getElementById("registerModal").classList.remove("hidden");
+        }
+
+        function closeRegisterModal() {
+            document.getElementById("registerModal").classList.add("hidden");
+        }
+
+        function submitTechnicianForm(e) {
+            e.preventDefault();
+            const name = document.getElementById("regName").value.trim();
+            const skill = document.getElementById("regSkill").value;
+            const phone = document.getElementById("regPhone").value.trim();
+            const exp = document.getElementById("regExp").value.trim() || "Not specified";
+            const area = document.getElementById("regArea").value.trim();
+
+            const msg = encodeURIComponent(
+                `*New Technician Registration (FixoChamp)*\n\n` +
+                `👤 Name: ${name}\n` +
+                `🛠️ Category: ${skill}\n` +
+                `📞 Phone: ${phone}\n` +
+                `⏳ Experience: ${exp}\n` +
+                `📍 Area: ${area}`
+            );
+
+            window.open(`https://wa.me/${ADMIN_WHATSAPP}?text=${msg}`, "_blank");
+            closeRegisterModal();
+        }
+
+        // Initial Render
+        renderTechnicians(technicians);
+    </script>
+</body>
+</html>
