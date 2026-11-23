@@ -48,6 +48,10 @@
 
             <!-- Right CTA -->
             <div class="flex items-center gap-2">
+                <a href="login.html" id="loginNavLink" class="text-xs sm:text-sm font-semibold text-slate-700 hover:text-blue-600 bg-slate-100 hover:bg-blue-50 border border-slate-200 px-3.5 py-2 rounded-lg transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    <span>Login</span>
+                </a>
                 <button onclick="openRegisterModal()" class="text-xs sm:text-sm font-semibold bg-slate-900 hover:bg-slate-800 text-white px-3.5 py-2 rounded-lg transition flex items-center gap-1.5 shadow-sm">
                     <i class="fa-solid fa-user-plus text-blue-400"></i>
                     <span>Join as Technician</span>
@@ -144,7 +148,7 @@
     </main>
 
     <!-- How It Works Section -->
-    <section class="bg-white border-t border-slate-200 py-12 px-4 mt-6">
+    <section id="how-it-works" class="bg-white border-t border-slate-200 py-12 px-4 mt-6">
         <div class="max-w-5xl mx-auto">
             <div class="text-center mb-8">
                 <h2 class="text-2xl font-extrabold text-slate-900">How FixoChamp Works</h2>
@@ -180,6 +184,7 @@
             </div>
             <div class="flex flex-wrap justify-center gap-4 text-xs text-slate-400">
                 <span><i class="fa-solid fa-location-dot text-blue-400 mr-1"></i> Champua, Keonjhar, Odisha</span>
+                <a href="login.html" class="text-blue-400 hover:underline font-medium">Login</a>
                 <button onclick="openRegisterModal()" class="text-blue-400 hover:underline font-medium">Register as a Technician</button>
             </div>
         </div>
@@ -498,6 +503,25 @@
             window.open(`https://wa.me/${ADMIN_WHATSAPP}?text=${msg}`, "_blank");
             closeRegisterModal();
         }
+
+        // Show logged-in role badge in header if session exists
+        (function checkFixoChampSession() {
+            const raw = localStorage.getItem("fixochamp_session");
+            if (!raw) return;
+
+            try {
+                const session = JSON.parse(raw);
+                const loginLink = document.getElementById("loginNavLink");
+                if (loginLink && session.role) {
+                    const label = session.role === "technician"
+                        ? `Tech (${session.category || "Account"})`
+                        : "Customer";
+                    loginLink.innerHTML = `<i class="fa-solid fa-circle-user text-emerald-600"></i> <span>${label}</span>`;
+                }
+            } catch (err) {
+                console.error("Session parse error:", err);
+            }
+        })();
 
         // Initial Render
         renderTechnicians(technicians);
