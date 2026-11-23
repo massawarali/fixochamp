@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FixoChamp | Trusted Local Technicians in Champua</title>
-    <meta name="description" content="Find verified Electricians, Plumbers, AC Technicians, and Carpenters in Champua, Odisha. Instant call & WhatsApp booking.">
+    <meta name="description" content="Find verified Electricians, Plumbers, AC Technicians, and Carpenters in Champua, Odisha.">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -20,17 +20,11 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: #f8fafc;
         }
-        /* Hide scrollbar for category pills on mobile */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 
-    <!-- Require login before viewing main site -->
+    <!-- Login Gate -->
     <script>
         (function enforceLoginGate() {
             const rawSession = localStorage.getItem("fixochamp_session");
@@ -40,7 +34,7 @@
             }
             try {
                 const parsed = JSON.parse(rawSession);
-                if (!parsed || !parsed.role || !parsed.user) {
+                if (!parsed || !parsed.role || !parsed.name) {
                     localStorage.removeItem("fixochamp_session");
                     window.location.replace("login.html");
                 }
@@ -67,19 +61,19 @@
                 </div>
             </a>
 
-            <!-- Right CTA -->
-            <div class="flex items-center gap-2 flex-wrap justify-end">
-                <a href="login.html" id="loginNavLink" class="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 px-3 py-1.5 rounded-lg transition">
-                    <i class="fa-solid fa-circle-user"></i>
-                    <span>Signed In</span>
-                </a>
-                <button onclick="openRegisterModal()" class="text-xs sm:text-sm font-semibold bg-slate-900 hover:bg-slate-800 text-white px-3.5 py-2 rounded-lg transition flex items-center gap-1.5 shadow-sm cursor-pointer">
-                    <i class="fa-solid fa-user-plus text-blue-400"></i>
-                    <span>Join as Technician</span>
+            <!-- Right Profile & Logout -->
+            <div class="flex items-center gap-2">
+                <button onclick="openProfileModal()" class="flex items-center gap-2 bg-slate-100 hover:bg-blue-50 border border-slate-200 px-2.5 py-1.5 rounded-xl transition cursor-pointer">
+                    <img id="navAvatar" src="" alt="Profile" class="w-7 h-7 rounded-full object-cover border border-slate-300">
+                    <div class="text-left hidden sm:block">
+                        <p id="navUserName" class="text-xs font-bold text-slate-900 leading-tight">My Profile</p>
+                        <p id="navUserRole" class="text-[10px] font-semibold text-blue-600 uppercase leading-tight">Member</p>
+                    </div>
                 </button>
-                <button onclick="logoutUser()" class="text-xs sm:text-sm font-semibold text-rose-600 hover:text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 px-3 py-2 rounded-lg transition flex items-center gap-1.5 cursor-pointer">
+
+                <button onclick="logoutUser()" class="text-xs sm:text-sm font-semibold text-rose-600 hover:text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 px-3 py-2 rounded-xl transition flex items-center gap-1.5 cursor-pointer">
                     <i class="fa-solid fa-right-from-bracket"></i>
-                    <span>Logout</span>
+                    <span class="hidden sm:inline">Logout</span>
                 </button>
             </div>
         </div>
@@ -150,134 +144,86 @@
                 <p class="text-xs sm:text-sm text-slate-500">ID-checked local experts &bull; Direct contact</p>
             </div>
             <span class="text-xs font-semibold bg-blue-50 text-blue-700 px-3 py-1 rounded-full border border-blue-200" id="resultCount">
-                Showing 6 Experts
+                Showing Experts
             </span>
         </div>
 
-        <!-- Cards Container -->
-        <div id="technicianGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            <!-- Cards will be dynamically injected here via JS -->
-        </div>
+        <div id="technicianGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
 
-        <!-- Empty State -->
         <div id="emptyState" class="hidden text-center py-14 bg-white rounded-2xl border border-slate-200">
             <div class="w-14 h-14 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center mx-auto mb-3 text-xl">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </div>
             <h3 class="text-base font-bold text-slate-800">No matching technicians found</h3>
-            <p class="text-sm text-slate-500 mt-1 mb-4">Try another keyword or click "All Services" to view everyone.</p>
+            <p class="text-sm text-slate-500 mt-1 mb-4">Try another keyword or click "All Services".</p>
             <button onclick="resetFilters()" class="bg-blue-600 text-white text-sm font-semibold px-4 py-2 rounded-lg cursor-pointer">
                 Show All Technicians
             </button>
         </div>
     </main>
 
-    <!-- How It Works Section -->
-    <section id="how-it-works" class="bg-white border-t border-slate-200 py-12 px-4 mt-6">
-        <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-8">
-                <h2 class="text-2xl font-extrabold text-slate-900">How FixoChamp Works</h2>
-                <p class="text-sm text-slate-500 mt-1">Simple 3-step process &mdash; fast and transparent</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="p-5 rounded-2xl bg-slate-50 border border-slate-100">
-                    <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 font-bold flex items-center justify-center mb-3">1</div>
-                    <h3 class="font-bold text-slate-900 mb-1">Choose Service &amp; Area</h3>
-                    <p class="text-sm text-slate-600">Select an Electrician, Plumber, AC Technician, or Carpenter based on your work and location.</p>
-                </div>
-                <div class="p-5 rounded-2xl bg-slate-50 border border-slate-100">
-                    <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center mb-3">2</div>
-                    <h3 class="font-bold text-slate-900 mb-1">Call or Message on WhatsApp</h3>
-                    <p class="text-sm text-slate-600">Tap "Call Now" or "WhatsApp" on a technician card to discuss timing and repair details directly.</p>
-                </div>
-                <div class="p-5 rounded-2xl bg-slate-50 border border-slate-100">
-                    <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 font-bold flex items-center justify-center mb-3">3</div>
-                    <h3 class="font-bold text-slate-900 mb-1">Pay After Work</h3>
-                    <p class="text-sm text-slate-600">Pay the technician directly via cash or UPI once the job is completed to your satisfaction.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Footer -->
-    <footer class="bg-slate-900 text-slate-300 py-10 px-4">
-        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div class="text-center sm:text-left">
-                <span class="text-xl font-extrabold text-white">Fixo<span class="text-blue-400">Champ</span></span>
-                <p class="text-xs text-slate-400 mt-1">Connecting Champua homes with reliable local technicians.</p>
+    <footer class="bg-slate-900 text-slate-300 py-8 px-4 mt-8">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+            <div>
+                <span class="text-lg font-extrabold text-white">Fixo<span class="text-blue-400">Champ</span></span>
+                <span class="text-slate-400 ml-2">Champua, Keonjhar, Odisha</span>
             </div>
-            <div class="flex flex-wrap justify-center gap-4 text-xs text-slate-400">
-                <span><i class="fa-solid fa-location-dot text-blue-400 mr-1"></i> Champua, Keonjhar, Odisha</span>
-                <button onclick="openRegisterModal()" class="text-blue-400 hover:underline font-medium cursor-pointer">Register as a Technician</button>
+            <div class="flex gap-4">
+                <button onclick="openProfileModal()" class="text-blue-400 hover:underline font-medium cursor-pointer">My Profile</button>
                 <button onclick="logoutUser()" class="text-rose-400 hover:underline font-medium cursor-pointer">Logout</button>
             </div>
         </div>
-        <div class="max-w-6xl mx-auto border-t border-slate-800 mt-6 pt-5 text-center text-xs text-slate-500">
-            &copy; 2026 FixoChamp Champua. All rights reserved.
-        </div>
     </footer>
 
-    <!-- Modal: Join as Technician -->
-    <div id="registerModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
-            <button onclick="closeRegisterModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-lg cursor-pointer">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-
-            <div class="mb-4">
-                <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md">For Local Technicians</span>
-                <h3 class="text-xl font-bold text-slate-900 mt-2">Join FixoChamp Directory</h3>
-                <p class="text-xs text-slate-500 mt-1">If you provide repair services around Champua, submit your details below and our team will get in touch.</p>
+    <!-- MY PROFILE MODAL -->
+    <div id="profileModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full overflow-hidden shadow-2xl relative">
+            <!-- Top Banner -->
+            <div id="profileBanner" class="h-24 bg-gradient-to-r from-blue-600 to-indigo-700 relative">
+                <button onclick="closeProfileModal()" class="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-black/20 hover:bg-black/35 text-white flex items-center justify-center cursor-pointer transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
             </div>
 
-            <form onsubmit="submitTechnicianForm(event)" class="space-y-3.5">
-                <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Full Name *</label>
-                    <input type="text" id="regName" required placeholder="e.g., Rakesh Mahanta" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-blue-600">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Service Category *</label>
-                    <select id="regSkill" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-blue-600 bg-white">
-                        <option value="Electrician">Electrician</option>
-                        <option value="Plumber">Plumber</option>
-                        <option value="AC Technician">AC &amp; Fridge Technician</option>
-                        <option value="Carpenter">Carpenter</option>
-                    </select>
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Mobile / WhatsApp *</label>
-                        <input type="tel" id="regPhone" required placeholder="9861XXXXXX" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-blue-600">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Experience</label>
-                        <input type="text" id="regExp" placeholder="e.g., 5 Years" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-blue-600">
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Area / Location *</label>
-                    <input type="text" id="regArea" required placeholder="e.g., Champua Market / Rimuli" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-blue-600">
+            <!-- Profile Content -->
+            <div class="px-6 pb-6 -mt-12 relative">
+                <div class="flex items-end justify-between mb-3">
+                    <img id="modalAvatar" src="" alt="User" class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg bg-white">
+                    <span id="modalRoleBadge" class="text-xs font-bold uppercase px-3 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200 mb-2"></span>
                 </div>
 
-                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl text-sm transition flex items-center justify-center gap-2 mt-2 cursor-pointer">
-                    <i class="fa-brands fa-whatsapp text-lg"></i> Send Details on WhatsApp
-                </button>
-            </form>
+                <h3 id="modalName" class="text-xl font-extrabold text-slate-900"></h3>
+                <p id="modalPhone" class="text-xs font-semibold text-slate-500 mt-0.5"></p>
+
+                <!-- Details Box -->
+                <div id="modalDetails" class="mt-4 bg-slate-50 border border-slate-200/70 rounded-2xl p-4 space-y-2 text-xs text-slate-700"></div>
+
+                <!-- Technician Availability Toggle -->
+                <div id="techStatusControls" class="hidden mt-4 flex items-center justify-between bg-amber-50 border border-amber-200 rounded-xl p-3">
+                    <div>
+                        <p class="text-xs font-bold text-slate-900">Directory Availability</p>
+                        <p class="text-[11px] text-slate-600">Toggle if you are free for work today</p>
+                    </div>
+                    <button id="toggleAvailBtn" onclick="toggleMyAvailability()" class="px-3.5 py-1.5 rounded-lg text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 cursor-pointer transition">
+                        Available
+                    </button>
+                </div>
+
+                <div class="mt-5 flex gap-2.5">
+                    <button onclick="closeProfileModal()" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold py-2.5 rounded-xl text-xs cursor-pointer transition">
+                        Close
+                    </button>
+                    <button onclick="logoutUser()" class="flex-1 bg-rose-600 hover:bg-rose-700 text-white font-bold py-2.5 rounded-xl text-xs cursor-pointer transition">
+                        Logout
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- JavaScript Data & Logic -->
     <script>
-        // ==========================================
-        // 1. ADMIN CONFIGURATION (Enter your WhatsApp number here)
-        // ==========================================
-        const ADMIN_WHATSAPP = "919861000000"; // Format: 91 + 10-digit mobile number
-
-        // ==========================================
-        // 2. TECHNICIANS DATABASE (Add verified Champua technicians here)
-        // ==========================================
-        const technicians = [
+        const defaultTechnicians = [
             {
                 id: 1,
                 name: "Suresh Kumar Mahanta",
@@ -286,7 +232,7 @@
                 area: "Champua Main Market & College Road",
                 experience: "7 Years Exp",
                 visitCharge: "₹100",
-                phone: "919861000001",
+                phoneRaw: "919861000001",
                 available: true,
                 verified: true,
                 rating: "4.8"
@@ -299,7 +245,7 @@
                 area: "Champua Bypass & Hospital Road",
                 experience: "6 Years Exp",
                 visitCharge: "₹100",
-                phone: "919861000002",
+                phoneRaw: "919861000002",
                 available: true,
                 verified: true,
                 rating: "4.7"
@@ -312,7 +258,7 @@
                 area: "Champua Bus Stand & Rimuli",
                 experience: "8 Years Exp",
                 visitCharge: "₹150",
-                phone: "919861000003",
+                phoneRaw: "919861000003",
                 available: true,
                 verified: true,
                 rating: "4.9"
@@ -325,53 +271,28 @@
                 area: "Champua Town & Joda Road",
                 experience: "10 Years Exp",
                 visitCharge: "₹150",
-                phone: "919861000004",
+                phoneRaw: "919861000004",
                 available: true,
                 verified: true,
                 rating: "4.8"
-            },
-            {
-                id: 5,
-                name: "Manoj Kumar Patra",
-                category: "Electrician",
-                specialty: "Meter Board, Geyser Fitting & Short Circuit Fix",
-                area: "Rimuli & Champua Block Chowk",
-                experience: "5 Years Exp",
-                visitCharge: "₹100",
-                phone: "919861000005",
-                available: true,
-                verified: true,
-                rating: "4.6"
-            },
-            {
-                id: 6,
-                name: "Santosh Sethi",
-                category: "Plumber",
-                specialty: "CPVC Pipe Fitting, Commode Repair & Pump Installation",
-                area: "College Road & Sub-Collector Office Area",
-                experience: "9 Years Exp",
-                visitCharge: "₹100",
-                phone: "919861000006",
-                available: false,
-                verified: true,
-                rating: "4.7"
             }
         ];
 
+        let activeSession = JSON.parse(localStorage.getItem("fixochamp_session") || "{}");
         let selectedCategory = "All";
+
+        function getAllTechnicians() {
+            const registered = JSON.parse(localStorage.getItem("fixochamp_registered_techs") || "[]");
+            return [...registered, ...defaultTechnicians];
+        }
 
         function getCategoryStyle(category) {
             switch (category) {
-                case "Electrician":
-                    return { icon: "fa-bolt", bg: "bg-amber-50", text: "text-amber-700", border: "border-amber-200" };
-                case "Plumber":
-                    return { icon: "fa-faucet-drip", bg: "bg-cyan-50", text: "text-cyan-700", border: "border-cyan-200" };
-                case "AC Technician":
-                    return { icon: "fa-snowflake", bg: "bg-sky-50", text: "text-sky-700", border: "border-sky-200" };
-                case "Carpenter":
-                    return { icon: "fa-hammer", bg: "bg-orange-50", text: "text-orange-700", border: "border-orange-200" };
-                default:
-                    return { icon: "fa-wrench", bg: "bg-blue-50", text: "text-blue-700", border: "border-blue-200" };
+                case "Electrician": return { icon: "fa-bolt", bg: "bg-amber-50", text: "text-amber-700", border: "border-amber-200" };
+                case "Plumber": return { icon: "fa-faucet-drip", bg: "bg-cyan-50", text: "text-cyan-700", border: "border-cyan-200" };
+                case "AC Technician": return { icon: "fa-snowflake", bg: "bg-sky-50", text: "text-sky-700", border: "border-sky-200" };
+                case "Carpenter": return { icon: "fa-hammer", bg: "bg-orange-50", text: "text-orange-700", border: "border-orange-200" };
+                default: return { icon: "fa-wrench", bg: "bg-blue-50", text: "text-blue-700", border: "border-blue-200" };
             }
         }
 
@@ -388,17 +309,16 @@
                 emptyState.classList.remove("hidden");
                 return;
             }
-
             grid.classList.remove("hidden");
             emptyState.classList.add("hidden");
 
             list.forEach(tech => {
                 const style = getCategoryStyle(tech.category);
-                const whatsappMsg = encodeURIComponent(
-                    `Hello ${tech.name}, I found your contact on FixoChamp. I need ${tech.category} service in Champua.`
-                );
+                const phone = tech.phoneRaw || "919861000000";
+                const avatar = tech.photo || `https://ui-avatars.com/api/?name=${encodeURIComponent(tech.name)}&background=e2e8f0&color=334155&size=96`;
+                const whatsappMsg = encodeURIComponent(`Hello ${tech.name}, I found your profile on FixoChamp. I need ${tech.category} service in Champua.`);
 
-                const card = `
+                grid.innerHTML += `
                     <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition p-5 flex flex-col justify-between">
                         <div>
                             <div class="flex items-center justify-between gap-2 mb-3">
@@ -411,47 +331,40 @@
                                 }
                             </div>
 
-                            <div class="flex items-center gap-1.5">
-                                <h3 class="text-lg font-bold text-slate-900">${tech.name}</h3>
-                                ${tech.verified ? `<i class="fa-solid fa-circle-check text-blue-600 text-sm" title="ID Verified by FixoChamp"></i>` : ""}
+                            <div class="flex items-center gap-3">
+                                <img src="${avatar}" alt="${tech.name}" class="w-12 h-12 rounded-full object-cover border border-slate-200 shrink-0">
+                                <div>
+                                    <div class="flex items-center gap-1.5">
+                                        <h3 class="text-base font-bold text-slate-900">${tech.name}</h3>
+                                        ${tech.verified ? `<i class="fa-solid fa-circle-check text-blue-600 text-xs"></i>` : ""}
+                                    </div>
+                                    <p class="text-xs text-slate-500">${tech.experience} &bull; &#11088; ${tech.rating || "5.0"}</p>
+                                </div>
                             </div>
 
-                            <p class="text-xs sm:text-sm text-slate-600 mt-1 line-clamp-2">${tech.specialty}</p>
+                            <p class="text-xs sm:text-sm text-slate-600 mt-3 line-clamp-2">${tech.specialty}</p>
 
-                            <div class="mt-4 pt-3 border-t border-slate-100 space-y-1.5 text-xs text-slate-600">
-                                <div class="flex items-center gap-2">
-                                    <i class="fa-solid fa-location-dot text-slate-400 w-3.5 text-center"></i>
-                                    <span>${tech.area}</span>
-                                </div>
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center gap-2">
-                                        <i class="fa-solid fa-briefcase text-slate-400 w-3.5 text-center"></i>
-                                        <span>${tech.experience} &bull; &#11088; ${tech.rating}</span>
-                                    </div>
-                                    <div class="font-bold text-slate-800 bg-slate-100 px-2 py-0.5 rounded">
-                                        Visit: ${tech.visitCharge}
-                                    </div>
-                                </div>
+                            <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
+                                <span class="truncate pr-2"><i class="fa-solid fa-location-dot text-slate-400 mr-1"></i>${tech.area}</span>
+                                <span class="font-bold text-slate-800 bg-slate-100 px-2 py-0.5 rounded shrink-0">Visit: ${tech.visitCharge}</span>
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-2 gap-2.5 mt-5">
-                            <a href="tel:+${tech.phone}" class="flex items-center justify-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-3 rounded-xl text-xs sm:text-sm transition shadow-sm">
+                        <div class="grid grid-cols-2 gap-2.5 mt-4">
+                            <a href="tel:+${phone}" class="flex items-center justify-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-3 rounded-xl text-xs sm:text-sm transition">
                                 <i class="fa-solid fa-phone"></i> Call Now
                             </a>
-                            <a href="https://wa.me/${tech.phone}?text=${whatsappMsg}" target="_blank" rel="noopener" class="flex items-center justify-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 px-3 rounded-xl text-xs sm:text-sm transition shadow-sm">
+                            <a href="https://wa.me/${phone}?text=${whatsappMsg}" target="_blank" rel="noopener" class="flex items-center justify-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 px-3 rounded-xl text-xs sm:text-sm transition">
                                 <i class="fa-brands fa-whatsapp text-base"></i> WhatsApp
                             </a>
                         </div>
                     </div>
                 `;
-                grid.innerHTML += card;
             });
         }
 
         function setCategory(category) {
             selectedCategory = category;
-
             document.querySelectorAll(".cat-btn").forEach(btn => {
                 if (btn.dataset.cat === category) {
                     btn.classList.remove("bg-slate-100", "text-slate-700");
@@ -461,27 +374,21 @@
                     btn.classList.add("bg-slate-100", "text-slate-700", "font-semibold");
                 }
             });
-
-            document.getElementById("sectionTitle").textContent =
-                category === "All" ? "Available Technicians in Champua" : `${category}s in Champua`;
-
+            document.getElementById("sectionTitle").textContent = category === "All" ? "Available Technicians in Champua" : `${category}s in Champua`;
             filterTechnicians();
         }
 
         function filterTechnicians() {
             const query = document.getElementById("searchInput").value.toLowerCase().trim();
-
-            const filtered = technicians.filter(tech => {
+            const filtered = getAllTechnicians().filter(tech => {
                 const matchesCategory = selectedCategory === "All" || tech.category === selectedCategory;
                 const matchesSearch =
                     tech.name.toLowerCase().includes(query) ||
                     tech.category.toLowerCase().includes(query) ||
-                    tech.specialty.toLowerCase().includes(query) ||
-                    tech.area.toLowerCase().includes(query);
-
+                    (tech.specialty || "").toLowerCase().includes(query) ||
+                    (tech.area || "").toLowerCase().includes(query);
                 return matchesCategory && matchesSearch;
             });
-
             renderTechnicians(filtered);
         }
 
@@ -490,33 +397,79 @@
             setCategory("All");
         }
 
-        function openRegisterModal() {
-            document.getElementById("registerModal").classList.remove("hidden");
+        // Profile UI & Modal Logic
+        function loadUserProfileUI() {
+            document.getElementById("navAvatar").src = activeSession.photo;
+            document.getElementById("navUserName").textContent = activeSession.name;
+            document.getElementById("navUserRole").textContent = activeSession.role === "technician" ? activeSession.category : "Customer";
         }
 
-        function closeRegisterModal() {
-            document.getElementById("registerModal").classList.add("hidden");
+        function openProfileModal() {
+            document.getElementById("modalAvatar").src = activeSession.photo;
+            document.getElementById("modalName").textContent = activeSession.name;
+            document.getElementById("modalPhone").textContent = `${activeSession.user} • Age: ${activeSession.age || "N/A"}`;
+
+            const badge = document.getElementById("modalRoleBadge");
+            const banner = document.getElementById("profileBanner");
+            const details = document.getElementById("modalDetails");
+            const techControls = document.getElementById("techStatusControls");
+
+            if (activeSession.role === "technician") {
+                banner.className = "h-24 bg-gradient-to-r from-amber-500 to-orange-600 relative";
+                badge.className = "text-xs font-bold uppercase px-3 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-300 mb-2";
+                badge.textContent = activeSession.category;
+                details.innerHTML = `
+                    <p><strong>Specialty:</strong> ${activeSession.specialty}</p>
+                    <p><strong>Experience:</strong> ${activeSession.experience} &bull; <strong>Visit Charge:</strong> ${activeSession.visitCharge}</p>
+                    <p><strong>ID Proof:</strong> ${activeSession.idProof || "Verified"}</p>
+                    <p><strong>Service Area:</strong> ${activeSession.area}</p>
+                    <p><strong>Address:</strong> ${activeSession.address}</p>
+                `;
+                techControls.classList.remove("hidden");
+                updateAvailButton();
+            } else {
+                banner.className = "h-24 bg-gradient-to-r from-blue-600 to-indigo-700 relative";
+                badge.className = "text-xs font-bold uppercase px-3 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200 mb-2";
+                badge.textContent = "Customer";
+                details.innerHTML = `
+                    <p><strong>Locality / Area:</strong> ${activeSession.area}</p>
+                    <p><strong>Full Address:</strong> ${activeSession.address}</p>
+                `;
+                techControls.classList.add("hidden");
+            }
+
+            document.getElementById("profileModal").classList.remove("hidden");
         }
 
-        function submitTechnicianForm(e) {
-            e.preventDefault();
-            const name = document.getElementById("regName").value.trim();
-            const skill = document.getElementById("regSkill").value;
-            const phone = document.getElementById("regPhone").value.trim();
-            const exp = document.getElementById("regExp").value.trim() || "Not specified";
-            const area = document.getElementById("regArea").value.trim();
+        function closeProfileModal() {
+            document.getElementById("profileModal").classList.add("hidden");
+        }
 
-            const msg = encodeURIComponent(
-                `*New Technician Registration (FixoChamp)*\n\n` +
-                `Name: ${name}\n` +
-                `Category: ${skill}\n` +
-                `Phone: ${phone}\n` +
-                `Experience: ${exp}\n` +
-                `Area: ${area}`
-            );
+        function updateAvailButton() {
+            const btn = document.getElementById("toggleAvailBtn");
+            if (activeSession.available) {
+                btn.textContent = "Available";
+                btn.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 cursor-pointer transition";
+            } else {
+                btn.textContent = "Busy Today";
+                btn.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold text-white bg-amber-600 hover:bg-amber-700 cursor-pointer transition";
+            }
+        }
 
-            window.open(`https://wa.me/${ADMIN_WHATSAPP}?text=${msg}`, "_blank");
-            closeRegisterModal();
+        function toggleMyAvailability() {
+            activeSession.available = !activeSession.available;
+            localStorage.setItem("fixochamp_session", JSON.stringify(activeSession));
+
+            // Update in registered technicians list
+            const regTechs = JSON.parse(localStorage.getItem("fixochamp_registered_techs") || "[]");
+            const idx = regTechs.findIndex(t => t.id === activeSession.id);
+            if (idx !== -1) {
+                regTechs[idx].available = activeSession.available;
+                localStorage.setItem("fixochamp_registered_techs", JSON.stringify(regTechs));
+            }
+
+            updateAvailButton();
+            filterTechnicians();
         }
 
         function logoutUser() {
@@ -524,26 +477,8 @@
             window.location.replace("login.html");
         }
 
-        // Show logged-in role badge in header if session exists
-        (function checkFixoChampSession() {
-            const raw = localStorage.getItem("fixochamp_session");
-            if (!raw) return;
-
-            try {
-                const session = JSON.parse(raw);
-                const loginLink = document.getElementById("loginNavLink");
-                if (loginLink && session.role) {
-                    const label = session.role === "technician"
-                        ? `Tech (${session.category || "Account"})`
-                        : "Customer";
-                    loginLink.innerHTML = `<i class="fa-solid fa-circle-user text-emerald-600"></i> <span>${label}</span>`;
-                }
-            } catch (err) {
-                console.error("Session parse error:", err);
-            }
-        })();
-
-        renderTechnicians(technicians);
+        loadUserProfileUI();
+        renderTechnicians(getAllTechnicians());
     </script>
 </body>
 </html>
