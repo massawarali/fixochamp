@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FixoChamp | Trusted Local Technicians in Champua</title>
     <meta name="description" content="Find verified Electricians, Plumbers, AC Technicians, and Carpenters in Champua, Odisha. Instant call & WhatsApp booking.">
-    
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
+
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
@@ -69,10 +69,10 @@
 
             <!-- Right CTA -->
             <div class="flex items-center gap-2 flex-wrap justify-end">
-                <span id="sessionBadge" class="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 px-3 py-1.5 rounded-lg">
+                <a href="login.html" id="loginNavLink" class="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 px-3 py-1.5 rounded-lg transition">
                     <i class="fa-solid fa-circle-user"></i>
-                    <span id="sessionRoleText">Signed In</span>
-                </span>
+                    <span>Signed In</span>
+                </a>
                 <button onclick="openRegisterModal()" class="text-xs sm:text-sm font-semibold bg-slate-900 hover:bg-slate-800 text-white px-3.5 py-2 rounded-lg transition flex items-center gap-1.5 shadow-sm cursor-pointer">
                     <i class="fa-solid fa-user-plus text-blue-400"></i>
                     <span>Join as Technician</span>
@@ -92,7 +92,7 @@
                 <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                 Available across Champua, Rimuli &amp; Nearby Areas
             </div>
-            
+
             <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight mb-3">
                 Trusted Local Technicians in Champua, <span class="text-amber-400">Just One Click Away</span>
             </h1>
@@ -106,11 +106,11 @@
                     <div class="pl-3.5 pr-2 text-slate-400">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </div>
-                    <input 
-                        type="text" 
-                        id="searchInput" 
+                    <input
+                        type="text"
+                        id="searchInput"
                         onkeyup="filterTechnicians()"
-                        placeholder="Search service or area (e.g., Electrician, AC, Main Market)..." 
+                        placeholder="Search service or area (e.g., Electrician, AC, Main Market)..."
                         class="w-full py-2.5 px-2 text-sm sm:text-base text-slate-800 placeholder-slate-400 focus:outline-none"
                     >
                     <button onclick="filterTechnicians()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2.5 rounded-xl text-sm transition shrink-0 cursor-pointer">
@@ -224,7 +224,7 @@
             <button onclick="closeRegisterModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-lg cursor-pointer">
                 <i class="fa-solid fa-xmark"></i>
             </button>
-            
+
             <div class="mb-4">
                 <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md">For Local Technicians</span>
                 <h3 class="text-xl font-bold text-slate-900 mt-2">Join FixoChamp Directory</h3>
@@ -451,7 +451,7 @@
 
         function setCategory(category) {
             selectedCategory = category;
-            
+
             document.querySelectorAll(".cat-btn").forEach(btn => {
                 if (btn.dataset.cat === category) {
                     btn.classList.remove("bg-slate-100", "text-slate-700");
@@ -524,19 +524,22 @@
             window.location.replace("login.html");
         }
 
-        (function displayActiveSession() {
+        // Show logged-in role badge in header if session exists
+        (function checkFixoChampSession() {
+            const raw = localStorage.getItem("fixochamp_session");
+            if (!raw) return;
+
             try {
-                const session = JSON.parse(localStorage.getItem("fixochamp_session") || "{}");
-                const badge = document.getElementById("sessionBadge");
-                const roleText = document.getElementById("sessionRoleText");
-                if (badge && roleText && session.role) {
-                    roleText.textContent = session.role === "technician"
-                        ? `Technician (${session.category || "Champua"})`
+                const session = JSON.parse(raw);
+                const loginLink = document.getElementById("loginNavLink");
+                if (loginLink && session.role) {
+                    const label = session.role === "technician"
+                        ? `Tech (${session.category || "Account"})`
                         : "Customer";
-                    badge.classList.remove("hidden");
+                    loginLink.innerHTML = `<i class="fa-solid fa-circle-user text-emerald-600"></i> <span>${label}</span>`;
                 }
-            } catch (e) {
-                console.error("Session display error:", e);
+            } catch (err) {
+                console.error("Session parse error:", err);
             }
         })();
 
