@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OTP Login | FixoChamp Champua</title>
-    <meta name="description" content="Sign in to FixoChamp with mobile OTP as a Customer or Technician in Champua.">
+    <title>Login &amp; Register | FixoChamp Champua</title>
+    <meta name="description" content="Sign in or register on FixoChamp as a Customer or Technician in Champua.">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -22,47 +22,22 @@
             min-height: 100vh;
             overflow-x: hidden;
         }
-
         @keyframes floatSlow {
-            0%, 100% {
-                transform: translate(0px, 0px) scale(1);
-            }
-            50% {
-                transform: translate(26px, -28px) scale(1.06);
-            }
+            0%, 100% { transform: translate(0px, 0px) scale(1); }
+            50% { transform: translate(26px, -28px) scale(1.06); }
         }
-
         @keyframes floatReverse {
-            0%, 100% {
-                transform: translate(0px, 0px) scale(1);
-            }
-            50% {
-                transform: translate(-24px, 24px) scale(1.05);
-            }
+            0%, 100% { transform: translate(0px, 0px) scale(1); }
+            50% { transform: translate(-24px, 24px) scale(1.05); }
         }
-
         @keyframes cardEnter {
-            from {
-                opacity: 0;
-                transform: translateY(20px) scale(0.985);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
+            from { opacity: 0; transform: translateY(20px) scale(0.985); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
-
         @keyframes slideFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
         @keyframes shakeError {
             0%, 100% { transform: translateX(0); }
             20% { transform: translateX(-6px); }
@@ -70,46 +45,12 @@
             60% { transform: translateX(-4px); }
             80% { transform: translateX(4px); }
         }
-
-        @keyframes pulseRing {
-            0% {
-                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.35);
-            }
-            70% {
-                box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
-            }
-        }
-
-        .blob-one {
-            animation: floatSlow 9s ease-in-out infinite;
-        }
-
-        .blob-two {
-            animation: floatReverse 11s ease-in-out infinite;
-        }
-
-        .card-enter {
-            animation: cardEnter 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-        }
-
-        .anim-step {
-            animation: slideFadeIn 0.32s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-        }
-
-        .shake-error {
-            animation: shakeError 0.36s ease-in-out;
-        }
-
-        .logo-pulse {
-            animation: pulseRing 2.8s infinite;
-        }
-
-        .otp-digit:focus {
-            transform: translateY(-2px);
-        }
+        .blob-one { animation: floatSlow 9s ease-in-out infinite; }
+        .blob-two { animation: floatReverse 11s ease-in-out infinite; }
+        .card-enter { animation: cardEnter 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+        .anim-step { animation: slideFadeIn 0.32s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+        .shake-error { animation: shakeError 0.36s ease-in-out; }
+        .otp-digit:focus { transform: translateY(-2px); }
     </style>
 </head>
 <body class="text-slate-800 antialiased relative flex flex-col justify-between p-4 sm:p-6">
@@ -123,7 +64,7 @@
     <!-- Top Header -->
     <header class="relative z-10 max-w-5xl w-full mx-auto flex items-center justify-between py-2">
         <a href="index.html" class="flex items-center gap-2.5 group">
-            <div class="logo-pulse w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white transition-transform duration-300 group-hover:scale-105">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white shadow-lg">
                 <i class="fa-solid fa-wrench text-base"></i>
             </div>
             <div>
@@ -131,80 +72,44 @@
                 <p class="text-[11px] font-medium text-blue-200/80 -mt-1">Champua Local Services</p>
             </div>
         </a>
-
-        <a href="index.html" id="loginNavLink" class="text-xs sm:text-sm font-semibold text-blue-100 hover:text-white bg-white/10 hover:bg-white/15 border border-white/15 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5">
-            <i class="fa-solid fa-arrow-left text-xs"></i>
-            <span>Back to Home</span>
-        </a>
     </header>
 
-    <!-- Main OTP Login Card -->
-    <main class="relative z-10 my-auto py-6 w-full max-w-md mx-auto">
+    <!-- Main Card -->
+    <main class="relative z-10 my-auto py-6 w-full max-w-lg mx-auto">
         <div id="loginCard" class="card-enter bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/40 p-6 sm:p-8">
 
             <!-- Header Badge & Title -->
-            <div class="text-center mb-6">
+            <div class="text-center mb-5">
                 <span id="roleBadge" class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200 transition-all duration-300">
-                    <i class="fa-solid fa-user"></i> Customer OTP Login
+                    <i class="fa-solid fa-user"></i> Customer Portal
                 </span>
                 <h1 id="loginHeading" class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3 tracking-tight">
                     Sign In with Mobile
                 </h1>
                 <p id="loginSubtext" class="text-xs sm:text-sm text-slate-500 mt-1">
-                    Enter your 10-digit mobile number to receive a 6-digit verification code in Champua.
+                    Enter your 10-digit mobile number to continue on FixoChamp.
                 </p>
             </div>
 
-            <!-- Role Switcher Tabs -->
-            <div class="grid grid-cols-2 gap-1.5 bg-slate-100 p-1.5 rounded-2xl mb-6 border border-slate-200/70">
-                <button
-                    type="button"
-                    id="tabCustomer"
-                    onclick="switchRole('customer')"
-                    class="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold bg-blue-600 text-white shadow-md transition-all duration-300 cursor-pointer"
-                >
+            <!-- Role Switcher Tabs (Visible on Step 1) -->
+            <div id="roleSwitcher" class="grid grid-cols-2 gap-1.5 bg-slate-100 p-1.5 rounded-2xl mb-6 border border-slate-200/70">
+                <button type="button" id="tabCustomer" onclick="switchRole('customer')" class="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold bg-blue-600 text-white shadow-md transition-all duration-300 cursor-pointer">
                     <i class="fa-solid fa-user"></i>
                     <span>Login as Customer</span>
                 </button>
-
-                <button
-                    type="button"
-                    id="tabTechnician"
-                    onclick="switchRole('technician')"
-                    class="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition-all duration-300 cursor-pointer"
-                >
+                <button type="button" id="tabTechnician" onclick="switchRole('technician')" class="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition-all duration-300 cursor-pointer">
                     <i class="fa-solid fa-screwdriver-wrench"></i>
                     <span>Login as Technician</span>
                 </button>
             </div>
 
-            <!-- Step 1: Mobile Number Form -->
+            <!-- STEP 1: Mobile Number -->
             <div id="phoneStep" class="anim-step">
                 <form onsubmit="handleSendOtp(event)" class="space-y-4">
-
-                    <!-- Technician Trade Selector -->
-                    <div id="technicianExtraFields" class="hidden anim-step">
-                        <label class="block text-xs font-bold text-slate-700 mb-1.5">Primary Trade / Skill *</label>
-                        <div class="relative">
-                            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400">
-                                <i class="fa-solid fa-briefcase"></i>
-                            </span>
-                            <select id="techCategory" class="w-full pl-10 pr-4 py-2.5 border border-slate-300 rounded-xl text-sm bg-white text-slate-800 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition">
-                                <option value="Electrician">Electrician</option>
-                                <option value="Plumber">Plumber</option>
-                                <option value="AC Technician">AC &amp; Fridge Technician</option>
-                                <option value="Carpenter">Carpenter</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- 10-Digit Mobile Input -->
                     <div>
                         <label class="block text-xs font-bold text-slate-700 mb-1.5">Mobile Number *</label>
                         <div class="flex items-center border border-slate-300 rounded-xl overflow-hidden focus-within:border-blue-600 focus-within:ring-2 focus-within:ring-blue-600/20 transition bg-white">
-                            <span class="px-3.5 py-2.5 bg-slate-100 text-slate-700 font-bold text-sm border-r border-slate-300 select-none">
-                                +91
-                            </span>
+                            <span class="px-3.5 py-2.5 bg-slate-100 text-slate-700 font-bold text-sm border-r border-slate-300 select-none">+91</span>
                             <input
                                 type="tel"
                                 id="mobileInput"
@@ -218,31 +123,25 @@
                         </div>
                     </div>
 
-                    <button
-                        type="submit"
-                        id="sendOtpBtn"
-                        class="w-full bg-blue-600 hover:bg-blue-700 active:scale-[0.99] text-white font-bold py-3 px-4 rounded-xl text-sm shadow-lg shadow-blue-600/25 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
-                    >
+                    <button type="submit" id="sendOtpBtn" class="w-full bg-blue-600 hover:bg-blue-700 active:scale-[0.99] text-white font-bold py-3 px-4 rounded-xl text-sm shadow-lg shadow-blue-600/25 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer">
                         <span>Send OTP</span>
                         <i class="fa-solid fa-paper-plane text-xs"></i>
                     </button>
                 </form>
             </div>
 
-            <!-- Step 2: 6-Digit OTP Verification -->
+            <!-- STEP 2: OTP Verification -->
             <div id="otpStep" class="hidden anim-step space-y-4">
                 <div class="flex items-center justify-between bg-slate-50 border border-slate-200/80 rounded-xl px-3.5 py-2.5 text-xs">
                     <div>
                         <span class="text-slate-500">OTP sent to</span>
                         <strong id="sentPhoneDisplay" class="text-slate-900 ml-1">+91 XXXXXXXXXX</strong>
                     </div>
-                    <button type="button" onclick="changeNumber()" class="font-bold text-blue-600 hover:underline cursor-pointer">
-                        Change
-                    </button>
+                    <button type="button" onclick="changeNumber()" class="font-bold text-blue-600 hover:underline cursor-pointer">Change</button>
                 </div>
 
                 <!-- Demo OTP Hint Box -->
-                <div id="demoOtpHint" class="bg-amber-50 border border-amber-200 text-amber-900 rounded-xl px-3.5 py-2 text-xs flex items-center justify-between">
+                <div class="bg-amber-50 border border-amber-200 text-amber-900 rounded-xl px-3.5 py-2 text-xs flex items-center justify-between">
                     <span><i class="fa-solid fa-key mr-1.5 text-amber-600"></i>Demo OTP: <strong id="demoOtpCode" class="tracking-widest">------</strong></span>
                     <button type="button" onclick="fillDemoOtp()" class="font-bold text-amber-800 underline cursor-pointer">Auto-fill</button>
                 </div>
@@ -250,40 +149,111 @@
                 <form onsubmit="handleVerifyOtp(event)" class="space-y-4">
                     <div>
                         <label class="block text-xs font-bold text-slate-700 mb-2 text-center">Enter 6-Digit OTP *</label>
-                        <div class="grid grid-cols-6 gap-2" id="otpBoxes">
-                            <input type="text" inputmode="numeric" maxlength="1" class="otp-digit h-12 text-center text-lg font-extrabold border border-slate-300 rounded-xl focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition-all duration-150 bg-white">
-                            <input type="text" inputmode="numeric" maxlength="1" class="otp-digit h-12 text-center text-lg font-extrabold border border-slate-300 rounded-xl focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition-all duration-150 bg-white">
-                            <input type="text" inputmode="numeric" maxlength="1" class="otp-digit h-12 text-center text-lg font-extrabold border border-slate-300 rounded-xl focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition-all duration-150 bg-white">
-                            <input type="text" inputmode="numeric" maxlength="1" class="otp-digit h-12 text-center text-lg font-extrabold border border-slate-300 rounded-xl focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition-all duration-150 bg-white">
-                            <input type="text" inputmode="numeric" maxlength="1" class="otp-digit h-12 text-center text-lg font-extrabold border border-slate-300 rounded-xl focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition-all duration-150 bg-white">
-                            <input type="text" inputmode="numeric" maxlength="1" class="otp-digit h-12 text-center text-lg font-extrabold border border-slate-300 rounded-xl focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition-all duration-150 bg-white">
+                        <div class="grid grid-cols-6 gap-2">
+                            <input type="text" inputmode="numeric" maxlength="1" class="otp-digit h-12 text-center text-lg font-extrabold border border-slate-300 rounded-xl focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 bg-white">
+                            <input type="text" inputmode="numeric" maxlength="1" class="otp-digit h-12 text-center text-lg font-extrabold border border-slate-300 rounded-xl focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 bg-white">
+                            <input type="text" inputmode="numeric" maxlength="1" class="otp-digit h-12 text-center text-lg font-extrabold border border-slate-300 rounded-xl focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 bg-white">
+                            <input type="text" inputmode="numeric" maxlength="1" class="otp-digit h-12 text-center text-lg font-extrabold border border-slate-300 rounded-xl focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 bg-white">
+                            <input type="text" inputmode="numeric" maxlength="1" class="otp-digit h-12 text-center text-lg font-extrabold border border-slate-300 rounded-xl focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 bg-white">
+                            <input type="text" inputmode="numeric" maxlength="1" class="otp-digit h-12 text-center text-lg font-extrabold border border-slate-300 rounded-xl focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 bg-white">
                         </div>
                     </div>
 
-                    <button
-                        type="submit"
-                        id="verifyOtpBtn"
-                        class="w-full bg-emerald-600 hover:bg-emerald-700 active:scale-[0.99] text-white font-bold py-3 px-4 rounded-xl text-sm shadow-lg shadow-emerald-600/25 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
-                    >
+                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 active:scale-[0.99] text-white font-bold py-3 px-4 rounded-xl text-sm shadow-lg shadow-emerald-600/25 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer">
                         <i class="fa-solid fa-shield-check"></i>
-                        <span>Verify &amp; Continue</span>
+                        <span>Verify OTP</span>
                     </button>
 
                     <div class="text-center text-xs text-slate-500">
                         <span id="timerText">Resend OTP in <strong id="countdown">30</strong>s</span>
-                        <button type="button" id="resendBtn" onclick="resendOtp()" disabled class="hidden font-bold text-blue-600 hover:underline cursor-pointer">
-                            Resend OTP
-                        </button>
+                        <button type="button" id="resendBtn" onclick="resendOtp()" disabled class="hidden font-bold text-blue-600 hover:underline cursor-pointer">Resend OTP</button>
                     </div>
                 </form>
             </div>
 
-            <!-- Status / Feedback Banner -->
-            <div id="statusBanner" class="hidden mt-4 p-3 rounded-xl text-xs font-semibold border anim-step"></div>
+            <!-- STEP 3: Registration Form (Technician OR Customer) -->
+            <div id="registerStep" class="hidden anim-step">
+                <form onsubmit="handleCompleteProfile(event)" class="space-y-3.5">
 
-            <div class="mt-6 pt-5 border-t border-slate-100 text-center text-xs text-slate-500">
-                Champua Local Service Directory &bull; <a href="index.html" class="font-bold text-blue-600 hover:underline">FixoChamp Home</a>
+                    <!-- Profile Photo Upload with Preview -->
+                    <div class="flex flex-col items-center mb-2">
+                        <div class="relative">
+                            <img id="photoPreview" src="https://ui-avatars.com/api/?name=User&background=e2e8f0&color=475569&size=128" alt="Profile Photo" class="w-20 h-20 rounded-full object-cover border-4 border-white shadow-md bg-slate-100">
+                            <label for="photoInput" class="absolute bottom-0 right-0 w-7 h-7 bg-blue-600 hover:bg-blue-700 text-white rounded-full flex items-center justify-center cursor-pointer shadow-md transition">
+                                <i class="fa-solid fa-camera text-xs"></i>
+                            </label>
+                            <input type="file" id="photoInput" accept="image/*" class="hidden" onchange="handlePhotoUpload(event)">
+                        </div>
+                        <span class="text-[11px] font-medium text-slate-500 mt-1.5">Upload Profile Photo (Optional)</span>
+                    </div>
+
+                    <!-- Common Fields: Name & Age -->
+                    <div class="grid grid-cols-3 gap-3">
+                        <div class="col-span-2">
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Full Name *</label>
+                            <input type="text" id="profName" required placeholder="e.g., Rakesh Mahanta" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-blue-600">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Age *</label>
+                            <input type="number" id="profAge" required min="18" max="75" placeholder="28" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-blue-600">
+                        </div>
+                    </div>
+
+                    <!-- TECHNICIAN SPECIFIC FIELDS -->
+                    <div id="techRegFields" class="hidden space-y-3.5">
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Primary Trade *</label>
+                                <select id="profTrade" class="w-full border border-slate-300 rounded-xl px-3 py-2.5 text-sm bg-white focus:outline-none focus:border-amber-500">
+                                    <option value="Electrician">Electrician</option>
+                                    <option value="Plumber">Plumber</option>
+                                    <option value="AC Technician">AC Technician</option>
+                                    <option value="Carpenter">Carpenter</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Experience (Years) *</label>
+                                <input type="number" id="profExp" min="0" max="50" placeholder="e.g., 5" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-amber-500">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Visit Charge (₹) *</label>
+                                <input type="number" id="profCharge" min="50" max="1000" placeholder="e.g., 100" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-amber-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Aadhaar Last 4 Digits *</label>
+                                <input type="text" id="profIdProof" maxlength="4" placeholder="e.g., 4821" oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-amber-500">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Work Specialty / Skills *</label>
+                            <input type="text" id="profSpecialty" placeholder="e.g., House Wiring, Inverter, Fan & MCB Repair" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-amber-500">
+                        </div>
+                    </div>
+
+                    <!-- Common Address / Area Fields -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Area / Locality in Champua *</label>
+                        <input type="text" id="profArea" required placeholder="e.g., Main Market, College Road, Rimuli" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-blue-600">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Full Address / Landmark *</label>
+                        <textarea id="profAddress" required rows="2" placeholder="House/Shop No., Street, Near Landmark, Champua, Odisha" class="w-full border border-slate-300 rounded-xl px-3.5 py-2 text-sm focus:outline-none focus:border-blue-600"></textarea>
+                    </div>
+
+                    <button type="submit" id="saveProfileBtn" class="w-full bg-blue-600 hover:bg-blue-700 active:scale-[0.99] text-white font-bold py-3 px-4 rounded-xl text-sm shadow-lg transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer mt-2">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span>Create Profile &amp; Enter FixoChamp</span>
+                    </button>
+                </form>
             </div>
+
+            <!-- Status Banner -->
+            <div id="statusBanner" class="hidden mt-4 p-3 rounded-xl text-xs font-semibold border anim-step"></div>
         </div>
     </main>
 
@@ -296,62 +266,48 @@
         let currentRole = "customer";
         let generatedOtp = "";
         let activePhone = "";
+        let uploadedPhotoData = "";
         let countdownInterval = null;
 
         const otpInputs = Array.from(document.querySelectorAll(".otp-digit"));
 
-        // Auto-advance & backspace navigation across OTP boxes
         otpInputs.forEach((input, index) => {
             input.addEventListener("input", (e) => {
                 e.target.value = e.target.value.replace(/[^0-9]/g, "").slice(0, 1);
-                if (e.target.value && index < otpInputs.length - 1) {
-                    otpInputs[index + 1].focus();
-                }
+                if (e.target.value && index < otpInputs.length - 1) otpInputs[index + 1].focus();
             });
-
             input.addEventListener("keydown", (e) => {
-                if (e.key === "Backspace" && !e.target.value && index > 0) {
-                    otpInputs[index - 1].focus();
-                }
+                if (e.key === "Backspace" && !e.target.value && index > 0) otpInputs[index - 1].focus();
             });
-
             input.addEventListener("paste", (e) => {
                 const pasted = (e.clipboardData || window.clipboardData).getData("text").replace(/[^0-9]/g, "").slice(0, 6);
                 if (!pasted) return;
                 e.preventDefault();
-                pasted.split("").forEach((digit, i) => {
-                    if (otpInputs[i]) otpInputs[i].value = digit;
-                });
-                const nextIndex = Math.min(pasted.length, otpInputs.length - 1);
-                otpInputs[nextIndex].focus();
+                pasted.split("").forEach((digit, i) => { if (otpInputs[i]) otpInputs[i].value = digit; });
+                otpInputs[Math.min(pasted.length, otpInputs.length - 1)].focus();
             });
         });
 
         function switchRole(role) {
             if (currentRole === role) return;
             currentRole = role;
-
             const tabCustomer = document.getElementById("tabCustomer");
             const tabTechnician = document.getElementById("tabTechnician");
             const roleBadge = document.getElementById("roleBadge");
-            const techExtra = document.getElementById("technicianExtraFields");
             const sendOtpBtn = document.getElementById("sendOtpBtn");
-
             hideBanner();
 
             if (role === "customer") {
                 tabCustomer.className = "flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold bg-blue-600 text-white shadow-md transition-all duration-300 cursor-pointer";
                 tabTechnician.className = "flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition-all duration-300 cursor-pointer";
-                roleBadge.className = "inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200 transition-all duration-300";
-                roleBadge.innerHTML = `<i class="fa-solid fa-user"></i> Customer OTP Login`;
-                techExtra.classList.add("hidden");
+                roleBadge.className = "inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200";
+                roleBadge.innerHTML = `<i class="fa-solid fa-user"></i> Customer Portal`;
                 sendOtpBtn.className = "w-full bg-blue-600 hover:bg-blue-700 active:scale-[0.99] text-white font-bold py-3 px-4 rounded-xl text-sm shadow-lg shadow-blue-600/25 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer";
             } else {
                 tabTechnician.className = "flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold bg-amber-500 text-slate-950 shadow-md transition-all duration-300 cursor-pointer";
                 tabCustomer.className = "flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition-all duration-300 cursor-pointer";
-                roleBadge.className = "inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-300 transition-all duration-300";
-                roleBadge.innerHTML = `<i class="fa-solid fa-screwdriver-wrench"></i> Technician OTP Login`;
-                techExtra.classList.remove("hidden");
+                roleBadge.className = "inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-300";
+                roleBadge.innerHTML = `<i class="fa-solid fa-screwdriver-wrench"></i> Technician Portal`;
                 sendOtpBtn.className = "w-full bg-amber-500 hover:bg-amber-400 active:scale-[0.99] text-slate-950 font-extrabold py-3 px-4 rounded-xl text-sm shadow-lg shadow-amber-500/25 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer";
             }
         }
@@ -365,7 +321,6 @@
             const timerText = document.getElementById("timerText");
             const countdownEl = document.getElementById("countdown");
             const resendBtn = document.getElementById("resendBtn");
-
             let remaining = seconds;
             countdownEl.textContent = remaining;
             timerText.classList.remove("hidden");
@@ -387,39 +342,25 @@
         function handleSendOtp(event) {
             event.preventDefault();
             const phone = document.getElementById("mobileInput").value.trim();
-
             if (!/^[6-9][0-9]{9}$/.test(phone)) {
                 showBanner("Please enter a valid 10-digit Indian mobile number.", "error");
                 return;
             }
-
             activePhone = phone;
             generatedOtp = createOtpCode();
-
             document.getElementById("sentPhoneDisplay").textContent = `+91 ${activePhone}`;
             document.getElementById("demoOtpCode").textContent = generatedOtp;
 
-            const phoneStep = document.getElementById("phoneStep");
-            const otpStep = document.getElementById("otpStep");
-
-            phoneStep.classList.add("hidden");
-            otpStep.classList.remove("hidden");
-            otpStep.classList.remove("anim-step");
-            void otpStep.offsetWidth;
-            otpStep.classList.add("anim-step");
-
+            document.getElementById("phoneStep").classList.add("hidden");
+            document.getElementById("otpStep").classList.remove("hidden");
             otpInputs.forEach(box => (box.value = ""));
             otpInputs[0].focus();
-
             startTimer(30);
-            showBanner("6-digit OTP generated for demo verification.", "info");
+            showBanner("6-digit demo OTP generated.", "info");
         }
 
         function fillDemoOtp() {
-            if (!generatedOtp) return;
-            generatedOtp.split("").forEach((digit, idx) => {
-                if (otpInputs[idx]) otpInputs[idx].value = digit;
-            });
+            generatedOtp.split("").forEach((digit, idx) => { if (otpInputs[idx]) otpInputs[idx].value = digit; });
             otpInputs[otpInputs.length - 1].focus();
         }
 
@@ -429,17 +370,13 @@
             otpInputs.forEach(box => (box.value = ""));
             otpInputs[0].focus();
             startTimer(30);
-            showBanner("A new 6-digit OTP has been generated.", "info");
+            showBanner("New 6-digit demo OTP generated.", "info");
         }
 
         function changeNumber() {
             clearInterval(countdownInterval);
             document.getElementById("otpStep").classList.add("hidden");
-            const phoneStep = document.getElementById("phoneStep");
-            phoneStep.classList.remove("hidden");
-            phoneStep.classList.remove("anim-step");
-            void phoneStep.offsetWidth;
-            phoneStep.classList.add("anim-step");
+            document.getElementById("phoneStep").classList.remove("hidden");
             hideBanner();
         }
 
@@ -452,29 +389,134 @@
                 card.classList.remove("shake-error");
                 void card.offsetWidth;
                 card.classList.add("shake-error");
-                showBanner("Invalid OTP. Please check the 6-digit code and try again.", "error");
+                showBanner("Invalid OTP. Please check the 6-digit code.", "error");
                 return;
             }
 
             clearInterval(countdownInterval);
-            const category = currentRole === "technician" ? document.getElementById("techCategory").value : null;
 
-            const sessionData = {
+            // Check if profile already exists for this phone + role
+            const allProfiles = JSON.parse(localStorage.getItem("fixochamp_profiles") || "{}");
+            const profileKey = `${currentRole}_${activePhone}`;
+
+            if (allProfiles[profileKey]) {
+                localStorage.setItem("fixochamp_session", JSON.stringify(allProfiles[profileKey]));
+                showBanner(`Welcome back, ${allProfiles[profileKey].name}! Redirecting...`, "success");
+                setTimeout(() => { window.location.href = "index.html"; }, 800);
+                return;
+            }
+
+            // New User -> Open Registration Form Step
+            openRegistrationStep();
+        }
+
+        function openRegistrationStep() {
+            document.getElementById("otpStep").classList.add("hidden");
+            document.getElementById("roleSwitcher").classList.add("hidden");
+            document.getElementById("registerStep").classList.remove("hidden");
+            hideBanner();
+
+            const heading = document.getElementById("loginHeading");
+            const subtext = document.getElementById("loginSubtext");
+            const techFields = document.getElementById("techRegFields");
+            const saveBtn = document.getElementById("saveProfileBtn");
+
+            if (currentRole === "technician") {
+                heading.textContent = "Technician Registration";
+                subtext.textContent = "Complete your profile to get listed in Champua directory.";
+                techFields.classList.remove("hidden");
+                document.getElementById("profExp").required = true;
+                document.getElementById("profCharge").required = true;
+                document.getElementById("profIdProof").required = true;
+                document.getElementById("profSpecialty").required = true;
+                saveBtn.className = "w-full bg-amber-500 hover:bg-amber-400 active:scale-[0.99] text-slate-950 font-extrabold py-3 px-4 rounded-xl text-sm shadow-lg transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer mt-2";
+            } else {
+                heading.textContent = "Customer Registration";
+                subtext.textContent = "Set up your profile for faster local service bookings.";
+                techFields.classList.add("hidden");
+                document.getElementById("profExp").required = false;
+                document.getElementById("profCharge").required = false;
+                document.getElementById("profIdProof").required = false;
+                document.getElementById("profSpecialty").required = false;
+                saveBtn.className = "w-full bg-blue-600 hover:bg-blue-700 active:scale-[0.99] text-white font-bold py-3 px-4 rounded-xl text-sm shadow-lg transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer mt-2";
+            }
+        }
+
+        // Compress & preview uploaded photo so it safely fits in localStorage
+        function handlePhotoUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement("canvas");
+                    const maxSize = 200;
+                    let width = img.width;
+                    let height = img.height;
+                    if (width > height) {
+                        if (width > maxSize) { height *= maxSize / width; width = maxSize; }
+                    } else {
+                        if (height > maxSize) { width *= maxSize / height; height = maxSize; }
+                    }
+                    canvas.width = width;
+                    canvas.height = height;
+                    canvas.getContext("2d").drawImage(img, 0, 0, width, height);
+                    uploadedPhotoData = canvas.toDataURL("image/jpeg", 0.75);
+                    document.getElementById("photoPreview").src = uploadedPhotoData;
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function handleCompleteProfile(event) {
+            event.preventDefault();
+
+            const name = document.getElementById("profName").value.trim();
+            const age = document.getElementById("profAge").value.trim();
+            const area = document.getElementById("profArea").value.trim();
+            const address = document.getElementById("profAddress").value.trim();
+
+            const fallbackAvatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=${currentRole === "technician" ? "f59e0b" : "2563eb"}&color=ffffff&size=128`;
+
+            const profileData = {
+                id: Date.now(),
                 role: currentRole,
                 user: `+91 ${activePhone}`,
-                category: category,
-                verifiedAt: new Date().toISOString()
+                phoneRaw: `91${activePhone}`,
+                name: name,
+                age: age,
+                area: area,
+                address: address,
+                photo: uploadedPhotoData || fallbackAvatar,
+                createdAt: new Date().toISOString()
             };
 
-            localStorage.setItem("fixochamp_session", JSON.stringify(sessionData));
-            showBanner(
-                `OTP verified! Logging in as ${currentRole === "technician" ? `Technician (${category})` : "Customer"}...`,
-                "success"
-            );
+            if (currentRole === "technician") {
+                profileData.category = document.getElementById("profTrade").value;
+                profileData.experience = `${document.getElementById("profExp").value.trim()} Years Exp`;
+                profileData.visitCharge = `₹${document.getElementById("profCharge").value.trim()}`;
+                profileData.idProof = `XXXX-XXXX-${document.getElementById("profIdProof").value.trim()}`;
+                profileData.specialty = document.getElementById("profSpecialty").value.trim();
+                profileData.available = true;
+                profileData.verified = true;
+                profileData.rating = "5.0";
 
-            setTimeout(() => {
-                window.location.href = "index.html";
-            }, 850);
+                // Save technician to live directory list in localStorage
+                const regTechs = JSON.parse(localStorage.getItem("fixochamp_registered_techs") || "[]");
+                regTechs.unshift(profileData);
+                localStorage.setItem("fixochamp_registered_techs", JSON.stringify(regTechs));
+            }
+
+            // Save to all profiles dictionary + active session
+            const allProfiles = JSON.parse(localStorage.getItem("fixochamp_profiles") || "{}");
+            allProfiles[`${currentRole}_${activePhone}`] = profileData;
+            localStorage.setItem("fixochamp_profiles", JSON.stringify(allProfiles));
+            localStorage.setItem("fixochamp_session", JSON.stringify(profileData));
+
+            showBanner("Profile created successfully! Taking you to FixoChamp...", "success");
+            setTimeout(() => { window.location.href = "index.html"; }, 900);
         }
 
         function showBanner(message, type) {
@@ -489,28 +531,8 @@
         }
 
         function hideBanner() {
-            const banner = document.getElementById("statusBanner");
-            banner.classList.add("hidden");
+            document.getElementById("statusBanner").classList.add("hidden");
         }
-
-        // Show logged-in role badge in header if session exists
-        (function checkFixoChampSession() {
-            const raw = localStorage.getItem("fixochamp_session");
-            if (!raw) return;
-
-            try {
-                const session = JSON.parse(raw);
-                const loginLink = document.querySelector('a[href="login.html"]');
-                if (loginLink && session.role) {
-                    const label = session.role === "technician"
-                        ? `Tech (${session.category || "Account"})`
-                        : "Customer";
-                    loginLink.innerHTML = `<i class="fa-solid fa-circle-user text-emerald-600"></i> <span>${label}</span>`;
-                }
-            } catch (err) {
-                console.error("Session parse error:", err);
-            }
-        })();
     </script>
 </body>
 </html>
