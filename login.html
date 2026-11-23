@@ -1,0 +1,18 @@
+// Show logged-in role badge in header if session exists
+        (function checkFixoChampSession() {
+            const raw = localStorage.getItem("fixochamp_session");
+            if (!raw) return;
+
+            try {
+                const session = JSON.parse(raw);
+                const loginLink = document.querySelector('a[href="login.html"]');
+                if (loginLink && session.role) {
+                    const label = session.role === "technician"
+                        ? `Tech (${session.category || "Account"})`
+                        : "Customer";
+                    loginLink.innerHTML = `<i class="fa-solid fa-circle-user text-emerald-600"></i> <span>${label}</span>`;
+                }
+            } catch (err) {
+                console.error("Session parse error:", err);
+            }
+        })();
